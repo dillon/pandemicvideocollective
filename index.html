@@ -52,30 +52,27 @@
       dsjafkghlskhdjfkj.play(); 
       ijasdfjkladsf.classList.add("hide")
     }
-
     function asdfljkafdhsldafshl() {
       fetch("https://spreadsheets.google.com/feeds/cells/1f5pZ78q3jUERJ3YGQfv2RFqjIx8VGuDQJhQD2wvU1ZQ/1/public/full?alt=json")
-        .catch(e => console.log(e))
-        .then(res => res.json())
-        .then(data => {
-          if (!(data && data.feed && data.feed.entry && data.feed.entry.length > 0)) {
+        .catch(sdf => console.log(sdf))
+        .then(dfs => dfs.json())
+        .then(jskldf => {
+          if (!(jskldf && jskldf.feed && jskldf.feed.entry && jskldf.feed.entry.length > 0)) {
             ljdfskfjklas.style.cursor = 'default'
             ljdfskfjklas.onclick = null
             klsdjfsfjkld.innerHTML = "Week 0"
           } else {
-          const weekNumber = data.feed.entry.length
-          const arrow = jhfadshajsdf[(weekNumber - 1) % jhfadshajsdf.length]
-          const url = data.feed.entry.slice(-1)[0].content['$t']
+          const flsdjkfdsjkldfsjkl = jskldf.feed.entry.length
+          const sdfljkdsfjklfdjsklsdljkf = jhfadshajsdf[(flsdjkfdsjkldfsjkl - 1) % jhfadshajsdf.length]
+          const ahsldjfashjlfdkdsaf = jskldf.feed.entry.slice(-1)[0].content['$t']
           
-          klsdjfsfjkld.innerHTML = "Week " + weekNumber + ' ' + arrow
-          dsjafkghlskhdjfkj.src = url
+          klsdjfsfjkld.innerHTML = "Week " + flsdjkfdsjkldfsjkl + ' ' + sdfljkdsfjklfdjsklsdljkf
+          dsjafkghlskhdjfkj.src = ahsldjfashjlfdkdsaf
           }
         })
     }
-
     window.onload = asdfljkafdhsldafshl
     </script> 
-    
 </body>
 </html>
 
