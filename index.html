@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pandemicvideocollective.com</title>
+  <meta property="og:title" content="Pandemic Video Collective" />
+  <meta name="description" content="pandemicvideocollective.com" />
+  <meta property="og:description" content="pandemicvideocollective.com" />
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+  <header id="ijasdfjkladsf">
+  <button id="ljdfskfjklas" onclick="lkasdjfaldsjfhadkls()" type="button" aria-label="hide header and play video">
+    <h1 id="klsdjfsfjkld">
+    </h1>
+  </button> 
+</header>
+  <video 
+    id="dsjafkghlskhdjfkj" 
+    width="100%" 
+    height="100%"
+    controls
+  >
+    <source src="" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <script> 
+    const ijasdfjkladsf = document.getElementById("ijasdfjkladsf"); 
+    const dsjafkghlskhdjfkj = document.getElementById("dsjafkghlskhdjfkj"); 
+    const klsdjfsfjkld = document.getElementById("klsdjfsfjkld")
+    const ljdfskfjklas = document.getElementById('ljdfskfjklas')
+    const jhfadshajsdf = [
+      "&#10228;",
+      "&#10513;",
+      "&#10567;",
+      "&#10143;",
+      "&#10522;",
+      "&#10565;",
+      "&#10154;",
+      "&#10509;",
+      "&#10583;",
+      "&#10230;",
+      "&#10518;",
+      "&#10170;",
+      "&#10610;",
+      "&#10171;",
+      "&#10233;",
+      "&#10609;",
+    ]
+    function lkasdjfaldsjfhadkls() {
+      dsjafkghlskhdjfkj.play(); 
+      ijasdfjkladsf.classList.add("hide")
+    }
+
+    function asdfljkafdhsldafshl() {
+      fetch("https://spreadsheets.google.com/feeds/cells/1f5pZ78q3jUERJ3YGQfv2RFqjIx8VGuDQJhQD2wvU1ZQ/1/public/full?alt=json")
+        .catch(e => console.log(e))
+        .then(res => res.json())
+        .then(data => {
+          if (!(data && data.feed && data.feed.entry && data.feed.entry.length > 0)) {
+            ljdfskfjklas.style.cursor = 'default'
+            ljdfskfjklas.onclick = null
+            klsdjfsfjkld.innerHTML = "Week 0"
+          } else {
+          const weekNumber = data.feed.entry.length
+          const arrow = jhfadshajsdf[(weekNumber - 1) % jhfadshajsdf.length]
+          const url = data.feed.entry.slice(-1)[0].content['$t']
+          
+          klsdjfsfjkld.innerHTML = "Week " + weekNumber + ' ' + arrow
+          dsjafkghlskhdjfkj.src = url
+          }
+        })
+    }
+
+    window.onload = asdfljkafdhsldafshl
+    </script> 
+    
+</body>
+</html>
+
+&#8669;
