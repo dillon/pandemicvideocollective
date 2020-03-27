@@ -48,7 +48,7 @@ video {
   border: none;
   display: block;
   margin: auto;
-  background-color: black !important;
+  background-color: black;
 }
 
 
