@@ -47,7 +47,7 @@
       "&#10233;",
       "&#10609;",
     ]
-    let userHasTouched = false
+    // let userHasTouched = false
     
     function playVideo() {
       videoElement.play(); 
@@ -114,12 +114,12 @@
           }
         })
     }
-    window.ontouchstart = function() {
-      if (!userHasTouched) {
-        userHasTouched = true
-        playVideo();
-      }
-    }
+    // window.ontouchstart = function() {
+    //   if (!userHasTouched) {
+    //     userHasTouched = true
+    //     playVideo();
+    //   }
+    // }
     window.onload = fetchDataAndInsert
     </script> 
 </body>
