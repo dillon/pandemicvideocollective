@@ -13,10 +13,8 @@
 </head>
 <body>
   <header id="header">
-    <button id="mainTitleButton" onclick="playVideo()" type="button" aria-label="hide header and play video">
-      <h1 id="mainTitle">
-      </h1>
-    </button> 
+    <div id="mainTitleDiv">
+    </div> 
   </header>
   <video 
     id="videoElement" 
@@ -25,11 +23,12 @@
     controls
   >
   </video>
+  <footer id="footer"></footer>
   <script> 
     const header = document.getElementById("header"); 
     const videoElement = document.getElementById("videoElement"); 
     const mainTitle = document.getElementById("mainTitle")
-    const mainTitleButton = document.getElementById('mainTitleButton')
+    const mainTitleDiv = document.getElementById('mainTitleDiv')
     const arrowsArray = [
       "&#10228;",
       "&#10513;",
@@ -53,6 +52,7 @@
     function playVideo() {
       videoElement.play(); 
       header.classList.add("hide")
+      document.getElementById('footer').classList.add("hide")
     }
     function fetchDataAndInsert() {
       fetch("https://spreadsheets.google.com/feeds/cells/1f5pZ78q3jUERJ3YGQfv2RFqjIx8VGuDQJhQD2wvU1ZQ/1/public/full?alt=json")
@@ -60,23 +60,57 @@
         .then(x => x.json())
         .then(theData => {
           if (!(theData && theData.feed && theData.feed.entry && theData.feed.entry.length > 0)) {
-            mainTitleButton.style.cursor = 'default'
-            mainTitleButton.onclick = null
+            mainTitleDiv.style.cursor = 'default'
+            mainTitleDiv.onclick = null
             mainTitle.innerHTML = "Week 0"
           } else {
           const rows = theData.feed.entry;
           const rowLength = rows && rows.length
-          const chosenArrow = arrowsArray[(rowLength - 1) % arrowsArray.length]
-          let url = theData.feed.entry.slice(-1)[0].content['$t']
-            .replace("www.dropbox", "dl.dropboxusercontent")
-            .replace("dl=0", "dl=1")
+          const weekObjects = rows.map((x, index) => {
+            weekNumber = index + 1
+            const chosenArrow = arrowsArray[(index) % arrowsArray.length]
+            
+            
+            const weekButton = document.createElement('button')
+            const weekTitle = document.createElement('h1')
+            weekButton.onclick = () => {
+              const url = theData.feed.entry[index].content['$t']
+                .replace("www.dropbox", "dl.dropboxusercontent")
+                .replace("dl=0", "dl=1")
+              console.log(url)
+              const videoElement = document.getElementById("videoElement")
+              videoElement.innerHTML = ''
+              const newVideoSourceElement = document.createElement('source');
+              newVideoSourceElement.id = "videoSourceElement"
+              newVideoSourceElement.src = url;
+              newVideoSourceElement.type = "video/mp4";
+              videoElement.appendChild(newVideoSourceElement)
+
+              setTimeout(playVideo, 200)
+            }
+            if (index === rowLength - 1) weekTitle.innerHTML = "Week " + weekNumber + ' ' + chosenArrow
+            else weekTitle.innerHTML = weekNumber
+            weekButton.appendChild(weekTitle);
+            return weekButton;
+          })
+
+          const footer = document.getElementById('footer');
           
-          mainTitle.innerHTML = "Week " + rowLength + ' ' + chosenArrow
-          const videoSourceElement = document.createElement('source');
+          weekObjects.forEach((x, i) => {
+              if (i === weekObjects.length - 1) mainTitleDiv.appendChild(x)
+              else footer.appendChild(x);
+            
+            })
+          // const videoSourceElement = document.createElement('source');
           
-          videoSourceElement.src = url;
-          videoSourceElement.type = "video/mp4";
-          videoElement.appendChild(videoSourceElement)
+          // const defaultUrl = theData.feed.entry.slice(-1)[0].content['$t']
+          //     .replace("www.dropbox", "dl.dropboxusercontent")
+          //     .replace("dl=0", "dl=1")
+
+          // videoSourceElement.id = "videoSourceElement"
+          // videoSourceElement.src = defaultUrl;
+          // videoSourceElement.type = "video/mp4";
+          // videoElement.appendChild(videoSourceElement)
           }
         })
     }
